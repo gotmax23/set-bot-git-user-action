@@ -24,7 +24,7 @@ runs:
         path="https://api.github.com/users/${INPUT_BOT}%5Bbot%5D"
         user_id="$(curl -sS "${path}" | jq -r .id)"
         set -x
-        git config ${{ input.global && "--global" || "" }} \
+        git config ${{ inputs.global && "--global" || "" }} \
           user.name "${INPUT_NAME}"
-        git config ${{ input.global && "--global" || "" }} \
+        git config ${{ inputs.global && "--global" || "" }} \
           user.email "${user_id}+${INPUT_BOT}[bot]@users.noreply.github.com"
