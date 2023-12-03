@@ -21,8 +21,6 @@ jobs:
           cd test
           echo "*" > .gitignore
           git init .
-          git add .
-          git commit -m init
       - name: "1. Check basic case with no options"
         run: |
           set -x -euo pipefail
