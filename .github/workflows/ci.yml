@@ -29,6 +29,9 @@ jobs:
           cd test
           [ "$(git config user.name)" != "Github Actions" ]
           [ "$(git config user.email)" != "${gha_email}" ]
+          cd -
+          git config --unset user.name
+          git config --unset user.email
 
       - name: "2. Run complex case with global"
         uses: ./
