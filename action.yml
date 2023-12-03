@@ -2,6 +2,9 @@
 name: "Set bot Github user action"
 description: "Action to set git commiter to a Github bot user"
 author: "Maxwell G (@gotmax23)"
+branding:
+  icon: user
+  color: green
 inputs:
   bot:
     description: "Bot's user name"
