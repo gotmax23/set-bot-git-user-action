@@ -16,8 +16,8 @@ runs:
     - name: Set user and committer
       shell: bash
       env:
-        INPUT_BOT: "${{ input.bot }}"
-        INPUT_NAME: "${{ input.name || input.bot }}"
+        INPUT_BOT: "${{ inputs.bot }}"
+        INPUT_NAME: "${{ inputs.name || inputs.bot }}"
         SCRIPT: "${{ github.action_path }}/set_bot_user.sh"
       run: |
         set -euo pipefail
