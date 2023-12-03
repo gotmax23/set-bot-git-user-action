@@ -1,0 +1,48 @@
+---
+name: CI
+'on':
+  push:
+  pull_request:
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    name: Test Github Action
+    env:
+      gha_email: "41898282+github-actions[bot]@users.noreply.github.com"
+      adb_email: "147556122+ansible-documentation-bot[bot]@users.noreply.github.com"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run basic case with no options
+        uses: ./
+      - name: "1. Create blank repo for testing"
+        run: |
+          set -x -euo pipefail
+          mkdir test
+          cd test
+          echo "*" > .gitignore
+          git init .
+          git add .
+          git commit -m init
+      - name: "1. Check basic case with no options"
+        run: |
+          set -x -euo pipefail
+          [ "$(git config user.name)" = "github-actions" ]
+          [ "$(git config user.email)" = "${gha_email}" ]
+          cd test
+          [ "$(git config user.name)" != "Github Actions" ]
+          [ "$(git config user.email)" != "${gha_email}" ]
+
+      - name: "2. Run complex case with global"
+        uses: ./
+        with:
+          global: true
+          bot: "ansible-documentation-bot"
+          name: "Ansible Documentation Bot"
+      - name: "2. Check complex case with global"
+        run: |
+          set -x -euo pipefail
+          for d in "." "test"; do
+            cd "${d}"
+            [ "$(git config user.name)" = "Ansible Documentation Bot" ]
+            [ "$(git config user.email)" = "$(adb_email}" ]
+          done

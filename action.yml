@@ -1,0 +1,30 @@
+---
+name: "Set bot Github user action"
+description: "Action to set git commiter to a Github bot user"
+author: "Maxwell G (@gotmax23)"
+inputs:
+  bot:
+    description: "Bot's user name"
+    default: "github-actions"
+  name:
+    description: "Name of the committer (user.name)"
+  global:
+    description: "Whether to set the config globally or only for the current repo"
+runs:
+  using: composite
+  steps:
+    - name: Set user and committer
+      shell: bash
+      env:
+        INPUT_BOT: "${{ input.bot }}"
+        INPUT_NAME: "${{ input.name || input.bot }}"
+        SCRIPT: "${{ github.action_path }}/set_bot_user.sh"
+      run: |
+        set -euo pipefail
+        path="https://api.github.com/users/${INPUT_BOT}%5Bbot%5D"
+        user_id="$(curl -sS "${path}" | jq -r .id)"
+        set -x
+        git config ${{ input.global && "--global" || "" }} \
+          user.name "${INPUT_NAME}"
+        git config ${{ input.global && "--global" || "" }} \
+          user.email "${user_id}+${INPUT_BOT}[bot]@users.noreply.github.com"

@@ -1,0 +1,11 @@
+# Copyright (C) 2023 Maxwell G <maxwell@gtmx.me
+# SPDX-License-Identifier: MIT
+
+config:
+  no-multiple-blanks: false
+  no-bare-urls: false
+  line_length:
+    line_length: 90
+    code_blocks: false
+  ul-indent:
+    indent: 4
