@@ -18,13 +18,18 @@ runs:
       env:
         INPUT_BOT: "${{ inputs.bot }}"
         INPUT_NAME: "${{ inputs.name || inputs.bot }}"
+        INPUT_GLOBAL: "${{ inputs.global }}"
         SCRIPT: "${{ github.action_path }}/set_bot_user.sh"
       run: |
         set -euo pipefail
         path="https://api.github.com/users/${INPUT_BOT}%5Bbot%5D"
         user_id="$(curl -sS "${path}" | jq -r .id)"
+        args=()
+        if [[ "${INPUT_GLOBAL}" =~ (true|1) ]]; then
+          args+=("--global")
+        fi
         set -x
-        git config ${{ inputs.global && "--global" || "" }} \
+        git config "${args[@]}" \
           user.name "${INPUT_NAME}"
-        git config ${{ inputs.global && "--global" || "" }} \
+        git config "${args[@]}" \
           user.email "${user_id}+${INPUT_BOT}[bot]@users.noreply.github.com"
