@@ -42,5 +42,5 @@ jobs:
           for d in "." "test"; do
             cd "${d}"
             [ "$(git config user.name)" = "Ansible Documentation Bot" ]
-            [ "$(git config user.email)" = "$(adb_email}" ]
+            [ "$(git config user.email)" = "${adb_email}" ]
           done
