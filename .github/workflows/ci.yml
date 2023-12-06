@@ -47,3 +47,16 @@ jobs:
             [ "$(git config user.name)" = "Ansible Documentation Bot" ]
             [ "$(git config user.email)" = "${adb_email}" ]
           done
+          git config --global --unset user.name
+          git config --global --unset user.email
+
+
+      - name: "3. Run complex case with working-directory"
+        uses: ./
+        with:
+          working-directory: ./test
+      - name: "3. Check complex case with working-directory"
+        run: |
+          cd test
+          [ "$(git config user.name)" = "github-actions" ]
+          [ "$(git config user.email)" = "${gha_email}" ]

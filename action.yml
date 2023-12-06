@@ -13,6 +13,9 @@ inputs:
     description: "Name of the committer (user.name)"
   global:
     description: "Whether to set the config globally or only for the current repo"
+  working-directory:
+    description: "Directory in which to run commands"
+    default: "."
 runs:
   using: composite
   steps:
@@ -22,6 +25,7 @@ runs:
         INPUT_BOT: "${{ inputs.bot }}"
         INPUT_NAME: "${{ inputs.name || inputs.bot }}"
         INPUT_GLOBAL: "${{ inputs.global }}"
+        INPUT_WORKING_DIRECTORY: "${{ inputs.working-directory }}"
         SCRIPT: "${{ github.action_path }}/set_bot_user.sh"
       run: |
         set -euo pipefail
@@ -31,6 +35,7 @@ runs:
         if [[ "${INPUT_GLOBAL}" =~ (true|1) ]]; then
           args+=("--global")
         fi
+        cd "${INPUT_WORKING_DIRECTORY}"
         set -x
         git config "${args[@]}" \
           user.name "${INPUT_NAME}"
