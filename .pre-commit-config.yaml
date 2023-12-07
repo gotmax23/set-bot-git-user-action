@@ -21,3 +21,6 @@ repos:
     hooks:
       - id: actionlint-docker
         entry: docker.io/rhysd/actionlint:1.6.26
+ci:
+  skip:
+    - actionlint-docker
