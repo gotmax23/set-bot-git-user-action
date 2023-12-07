@@ -16,3 +16,8 @@ repos:
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
+  - repo: https://github.com/rhysd/actionlint
+    rev: "v1.6.26"
+    hooks:
+      - id: actionlint-docker
+        entry: docker.io/rhysd/actionlint:1.6.26
