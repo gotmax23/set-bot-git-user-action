@@ -7,17 +7,17 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: "v0.16.0"
+    rev: "v0.17.2"
     hooks:
     - id: markdownlint-cli2
       require_serial: true
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: "0.30.0"
+    rev: "0.31.2"
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
   - repo: https://github.com/rhysd/actionlint
-    rev: "v1.7.4"
+    rev: "v1.7.7"
     hooks:
       - id: actionlint-docker
         entry: docker.io/rhysd/actionlint:1.6.26
