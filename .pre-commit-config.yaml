@@ -22,5 +22,6 @@ repos:
       - id: actionlint-docker
         entry: docker.io/rhysd/actionlint:1.6.26
 ci:
+  autoupdate_schedule: monthly
   skip:
     - actionlint-docker
